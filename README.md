@@ -1,4 +1,4 @@
-# webserver raspberry pico
+# Webserver Raspberry Pico
 
 [![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
 [![macOS](https://svgshare.com/i/ZjP.svg)](https://svgshare.com/i/ZjP.svg)
@@ -14,3 +14,6 @@
 
 
 Web Server written in micropython for a Raspberry Pi Pico W 2 - Wifi - BT
+#
+By Engineer: Felipe A. Gonzalez <f.alfonso@res-ear.ch>
+#
