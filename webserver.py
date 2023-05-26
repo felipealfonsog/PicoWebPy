@@ -32,7 +32,7 @@ wlan.active(True)
 wlan.connect(ssid, password)
 
 #loading the html file
-
+#It's recommendable to insert a full webpage in a iframe, as in the default.html file has
 with open('default.html', 'r', encoding='utf-8') as f:
     html = f.read()
 
