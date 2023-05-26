@@ -3,6 +3,12 @@ import network
 import socket
 import time
 
+# Check if running as main program
+if __name__ == '__main__':
+    # Reset the Raspberry Pi Pico to ensure a clean start
+    machine.reset()
+
+    
 # Set up network credentials
 ssid = '_TARS'
 password = ''
