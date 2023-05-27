@@ -40,8 +40,17 @@ if __name__ == '__main__':
     
 #---------
 # Initialize and connect to the Wi-Fi network
-ssid = 'wifi-id'
-password = 'pwd'
+# Casa
+'''
+ssid = 'moviTARS'
+password = 'gxD7'
+'''
+
+# Depto
+ssid = 'mo5DF'
+password = '~6qp'
+
+#---------
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
@@ -75,10 +84,18 @@ else:
 # Read the HTML file
 #-------------------------
 # It's recommendable to insert a full webpage in a iframe, as in the default.html file has
-
+'''
 with open('default.html', 'r', encoding='utf-8') as f:
     html = f.read()
+'''
 
+#-------------------------
+# Read the HTML file
+#-------------------------
+# It's recommendable to insert a full webpage in a iframe, as in the default.html file has
+'''
+with open('default.html', 'r', encoding='utf-8') as f:
+    html = f.read()
 '''
 
 # Get the directory path of the script
@@ -90,15 +107,19 @@ html_file = 'default.html'
 # Construct the file path
 file_path = script_dir + '/' + html_file
 
+# Initialize HTML content variable
+html = ''
+
 try:
     # Read the HTML file
     with open(file_path, 'r', encoding='utf-8') as f:
         html = f.read()
 except OSError:
     print(f"File not found: {file_path}")
-    html = ''
+else:
+    print(f"Loaded HTML file: {file_path}")
 
-# Check if the HTML was successfully loaded
+# Option 1: If the specified file is not found, load a default HTML file
 if not html:
     default_path = script_dir + '/default.html'
     try:
@@ -106,24 +127,15 @@ if not html:
             html = f.read()
     except OSError:
         print(f"Default HTML file not found: {default_path}")
+    else:
+        print(f"Loaded default HTML file: {default_path}")
 
+# Option 2: If both the specified file and default file are not found, display an error message
 if not html:
     print("HTML file not found. Please ensure the file exists in the specified location.")
 
 
-# ----
 
-
-# Load HTML using the desired option
-html = load_html_from_file(html_file)
-# html = load_html_from_files(file_mapping, html_file)
-# html = load_html_with_default(default_html_file, html_file)
-
-# Check if the HTML was successfully loaded
-if not html:
-    print("HTML file not found. Please ensure the file exists in the specified location.")
-
-'''
 #-------------------------
 
 
@@ -207,12 +219,120 @@ try:
         print('Request:', method, path)
 
         # Process the request based on the path
-        if path in file_mapping:
+        if path == '/':
             response = html.encode()
             content_type = 'text/html'
-        elif path == '/api':
-            response = b'{"message": "This is the API endpoint"}'
-            content_type = 'application/json'
+        else:
+            # Handle other paths or return a 404 Not Found
+            response = b'404 Not Found'
+            content_type = 'text/plain'
+
+        # Send the HTTP response headers
+        response_headers = f'HTTP/1.0 200 OK\r\nContent-type: {content_type}\r\n\r\n'
+        cl.send(response_headers.encode())
+
+        # Send the response content
+        cl.send(response)
+
+        # Close the connection after sending the response
+        cl.close()
+        print('Connection closed')
+
+except KeyboardInterrupt:
+    print('Keyboard interrupt detected, shutting down...')
+
+finally:
+    # Close the socket
+    s.close()
+    
+
+
+#-------------------------
+
+
+'''
+# Set up socket and bind to address v1.0
+
+addr = socket.getaddrinfo('0.0.0.0', 80)[0][-1]
+s = socket.socket()
+s.bind(addr)
+'''
+
+# Set up socket and bind to address
+# V2.0: in a while we avoid any possible error if there's any other port open
+
+# ---------
+ 
+
+port = 80
+while True:
+    try:
+        addr = socket.getaddrinfo('0.0.0.0', port)[0][-1]
+        s = socket.socket()
+        '''
+        TO AVOID THIS ERROR: OSError: [Errno 98] EADDRINUSEOSError: [Errno 98] EADDRINUSE
+        PREVIOUSLY only way to fix it is running this COMMAND in the console:
+            machine.reset()
+        '''
+        # I'VE ADDED THE NEXT LINE: 
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # Enable reusing the address
+        s.bind(addr)
+        break
+    except OSError as e:
+        if e.args[0] == 98:  # Address already in use
+            print(f"Port {port} is already in use, trying a different port...")
+            port += 1
+        else:
+            raise e
+        
+# Set socket to non-blocking
+# s.setblocking(False)
+
+# Listen for connections
+s.listen(1)
+print('Listening on', addr)
+
+# Set socket timeout to handle unresponsive connections
+'''
+ I've added the line s.settimeout(5) to set a timeout
+ of 5 seconds for socket operations. This means that if
+ a client connection is unresponsive for more than 5 seconds,
+ a socket.timeout exception will be raised, allowing the server
+ to continue running and accept new connections.
+'''
+# s.settimeout(5)  # 5 seconds timeout (adjust as needed)
+
+# Handle client connections
+try:
+    while True:
+        cl, addr = s.accept()
+        print('Client connected from', addr)
+        request = b''
+
+        # Receive the request in chunks until the complete request is received
+        while b'\r\n\r\n' not in request:
+            chunk = cl.recv(1024)
+            if not chunk:
+                break
+            request += chunk
+
+        if not request:
+            print('Empty request, closing connection')
+            cl.close()
+            continue
+
+        # Convert the request bytes to string
+        request = request.decode()
+
+        # Extract the HTTP method and path from the request
+        method, path, _ = request.split(' ', 2)
+
+        print('Request:', method, path)
+
+        # Process the request based on the path
+        if path == '/':
+            response = html.encode()
+            content_type = 'text/html'
         else:
             # Handle other paths or return a 404 Not Found
             response = b'404 Not Found'
