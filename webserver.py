@@ -377,27 +377,27 @@ except KeyboardInterrupt:
 finally:
     # Close the socket
     s.close()
+     
     
-    
-#  executed the code on power unless is connected via thonny
+# Executed the code on power unless is connected via thonny
 # Define the USB power detection pin
 usb_power_pin = machine.Pin(6, machine.Pin.IN)
 
-# Check if the program is running on USB power
-if usb_power_pin.value() == 1:
-    # Run the program immediately
-    print("Running program on USB power...")
-    main_program()
-
-else:
+try:
     # Wait until the program is executed via Thonny
     print("Waiting for program execution via Thonny...")
     while usb_power_pin.value() == 0:
-    # next line geneerates an error 
-     #   time.sleep(1)
+        time.sleep(1)
 
     # Run the program after it is executed via Thonny
     print("Running program after Thonny execution...")
     main_program()
-    
-    
+
+except KeyboardInterrupt:
+    print('Keyboard interrupt detected, shutting down...')
+
+finally:
+    # Cleanup code, if any
+    pass
+
+
