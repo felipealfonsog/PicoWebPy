@@ -288,6 +288,7 @@ while True:
 # Set socket to non-blocking
 # s.setblocking(False)
 
+
 # Listen for connections
 s.listen(1)
 print('Listening on', addr)
