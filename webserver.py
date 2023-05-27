@@ -15,7 +15,10 @@ import machine
 import network
 import socket
 import time
-
+import sys
+import os
+import uos
+#import select
       
 # Check if running as main program
 # This is going to help the usage of machine.restet()
@@ -27,12 +30,10 @@ import time
     the main program, i.e., directly executed by Thonny.
 
 '''
-
 '''
 if __name__ == '__main__':
-            # Reset the Raspberry Pi Pico to ensure a clean start
-        machine.reset()
-         
+    # Reset the Raspberry Pi Pico to ensure a clean start
+    machine.reset()# Check if running as main program
 '''
 
 
@@ -55,33 +56,6 @@ with open('default.html', 'r', encoding='utf-8') as f:
 
 
 # Wait for the network connection
-
-
-'''
-V.1.0 Code:
-
-max_wait = 10
-while max_wait > 0:
-    if wlan.status() < 0 or wlan.status() >= 3:
-        break
-    max_wait -= 1
-    print('waiting for connection...')
-    time.sleep(1)
-
-if wlan.status() != 3:
-    raise RuntimeError('network connection failed')
-else:
-    print('connected')
-    status = wlan.ifconfig()
-    print( 'ip = ' + status[0] )
-
-addr = socket.getaddrinfo('0.0.0.0', 80)[0][-1]
-
-s = socket.socket()
-
-'''
-
-# Wait for the network connection
 max_wait = 10
 while max_wait > 0:
     if wlan.status() < 0 or wlan.status() >= 3:
@@ -101,8 +75,55 @@ else:
 # Read the HTML file
 #-------------------------
 # It's recommendable to insert a full webpage in a iframe, as in the default.html file has
+
 with open('default.html', 'r', encoding='utf-8') as f:
     html = f.read()
+
+'''
+
+# Get the directory path of the script
+script_dir = uos.getcwd()
+
+# Specify the HTML file to load
+html_file = 'default.html'
+
+# Construct the file path
+file_path = script_dir + '/' + html_file
+
+try:
+    # Read the HTML file
+    with open(file_path, 'r', encoding='utf-8') as f:
+        html = f.read()
+except OSError:
+    print(f"File not found: {file_path}")
+    html = ''
+
+# Check if the HTML was successfully loaded
+if not html:
+    default_path = script_dir + '/default.html'
+    try:
+        with open(default_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+    except OSError:
+        print(f"Default HTML file not found: {default_path}")
+
+if not html:
+    print("HTML file not found. Please ensure the file exists in the specified location.")
+
+
+# ----
+
+
+# Load HTML using the desired option
+html = load_html_from_file(html_file)
+# html = load_html_from_files(file_mapping, html_file)
+# html = load_html_with_default(default_html_file, html_file)
+
+# Check if the HTML was successfully loaded
+if not html:
+    print("HTML file not found. Please ensure the file exists in the specified location.")
+
+'''
 #-------------------------
 
 
@@ -118,20 +139,6 @@ s.bind(addr)
 # V2.0: in a while we avoid any possible error if there's any other port open
 
 # ---------
-'''
-Next line - s.bind(addr) -, generates this error:
-Traceback (most recent call last):
-  File "<stdin>", line 60, in <module>
-OSError: [Errno 98] EADDRINUSE
-----------
-Fixed with this line:
-s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
-
---
-only way to fix it is running this lines in the console:
-machine.reset()
-
-'''
  
 
 port = 80
@@ -139,6 +146,12 @@ while True:
     try:
         addr = socket.getaddrinfo('0.0.0.0', port)[0][-1]
         s = socket.socket()
+        '''
+        TO AVOID THIS ERROR: OSError: [Errno 98] EADDRINUSEOSError: [Errno 98] EADDRINUSE
+        PREVIOUSLY only way to fix it is running this COMMAND in the console:
+            machine.reset()
+        '''
+        # I'VE ADDED THE NEXT LINE: 
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # Enable reusing the address
         s.bind(addr)
         break
@@ -149,54 +162,77 @@ while True:
         else:
             raise e
         
+# Set socket to non-blocking
+# s.setblocking(False)
 
 # Listen for connections
 s.listen(1)
 print('Listening on', addr)
 
-
+# Set socket timeout to handle unresponsive connections
+'''
+ I've added the line s.settimeout(5) to set a timeout
+ of 5 seconds for socket operations. This means that if
+ a client connection is unresponsive for more than 5 seconds,
+ a socket.timeout exception will be raised, allowing the server
+ to continue running and accept new connections.
+'''
+# s.settimeout(5)  # 5 seconds timeout (adjust as needed)
 
 # Handle client connections
 try:
     while True:
-        try:
-            cl, addr = s.accept()
-            print('Client connected from', addr)
-            request = cl.recv(1024)
-            print(request)
-            # Process the request
-            # Request = str(request) (old implementation)
-            # Process the request
-            request = request.decode()  # Convert bytes to string
+        cl, addr = s.accept()
+        print('Client connected from', addr)
+        request = b''
 
-            response = html.encode()  # Convert string to bytes
+        # Receive the request in chunks until the complete request is received
+        while b'\r\n\r\n' not in request:
+            chunk = cl.recv(1024)
+            if not chunk:
+                break
+            request += chunk
 
-            cl.send(b'HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
-            # There's an error in the line below  (Fixed using encode() & deode() )
-            cl.send(response)
+        if not request:
+            print('Empty request, closing connection')
             cl.close()
-        # Add more exceptions as errors apart from the one below 
-        except OSError as e:
-            cl.close()
-            print('Connection closed')
-        '''
-        #second alternative - not working properly 
-        except OSError or KeyboardInterrupt as e:
+            continue
+
+        # Convert the request bytes to string
+        request = request.decode()
+
+        # Extract the HTTP method and path from the request
+        method, path, _ = request.split(' ', 2)
+
+        print('Request:', method, path)
+
+        # Process the request based on the path
+        if path in file_mapping:
+            response = html.encode()
+            content_type = 'text/html'
+        elif path == '/api':
+            response = b'{"message": "This is the API endpoint"}'
+            content_type = 'application/json'
+        else:
+            # Handle other paths or return a 404 Not Found
+            response = b'404 Not Found'
+            content_type = 'text/plain'
+
+        # Send the HTTP response headers
+        response_headers = f'HTTP/1.0 200 OK\r\nContent-type: {content_type}\r\n\r\n'
+        cl.send(response_headers.encode())
+
+        # Send the response content
+        cl.send(response)
+
+        # Close the connection after sending the response
         cl.close()
         print('Connection closed')
-        machine.reset()
-        '''
-        
-        #KeyboardInterrupt exception
-        '''
-        except KeyboardInterrupt as addr:
-        machine.reset()
-        '''
 
 except KeyboardInterrupt:
     print('Keyboard interrupt detected, shutting down...')
-# Close the socket
+
 finally:
+    # Close the socket
     s.close()
     
-
