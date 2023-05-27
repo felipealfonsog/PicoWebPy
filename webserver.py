@@ -43,29 +43,20 @@ if __name__ == '__main__':
 
 #---------
 # Initialize and connect to the Wi-Fi network
-# Casa
-'''
-ssid = 'wifi-id'
-password = 'pwd'
-'''
 
-# Depto
-ssid = 'wifi-id'
-password = 'pwd'
+# Wi-Fi network details
+#---------
+network1_ssid = 'wifi-id-1'
+network1_password = 'pwd'
 
+network2_ssid = 'wifi-id-2'
+network2_password = 'pwd'
 #---------
 
+# Initialize and connect to the Wi-Fi network
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
-wlan.connect(ssid, password)
-
-'''
-#loading the html file
-V.1.0: 
-with open('default.html', 'r', encoding='utf-8') as f:
-    html = f.read()
-'''
-
+wlan.connect(network1_ssid, network1_password)
 
 # Wait for the network connection
 max_wait = 10
@@ -77,11 +68,30 @@ while max_wait > 0:
     time.sleep(1)
 
 if wlan.status() != 3:
-    raise RuntimeError('Network connection failed')
+    print('Connection to the first network failed. Trying the second network...')
+    wlan.connect(network2_ssid, network2_password)
+
+    # Wait for the network connection
+    max_wait = 10
+    while max_wait > 0:
+        if wlan.status() < 0 or wlan.status() >= 3:
+            break
+        max_wait -= 1
+        print('Waiting for connection...')
+        time.sleep(1)
+
+    if wlan.status() != 3:
+        raise RuntimeError('Network connection failed')
+    else:
+        print('Connected to the second network')
 else:
-    print('Connected')
-    status = wlan.ifconfig()
-    print('IP:', status[0])
+    print('Connected to the first network')
+
+status = wlan.ifconfig()
+print('IP:', status[0])
+
+
+
 
 #-------------------------
 # Read the HTML file
@@ -377,7 +387,7 @@ except KeyboardInterrupt:
 finally:
     # Close the socket
     s.close()
-     
+    
     
 # Executed the code on power unless is connected via thonny
 # Define the USB power detection pin
@@ -399,5 +409,6 @@ except KeyboardInterrupt:
 finally:
     # Cleanup code, if any
     pass
+
 
 
