@@ -50,13 +50,13 @@ if __name__ == '__main__':
 # Initialize and connect to the Wi-Fi network
 # Casa
 '''
-ssid = 'movistar2,4GHZ_50AF67_TARS'
-password = 'gpb3%V%P$!5exD7'
+ssid = 'movisF67_TARS'
+password = 'gpbxD7'
 '''
 
 # Depto
-ssid = 'movistar2,4GHZ_F185DF'
-password = '~{?ZEc#-G{CGw6qp'
+ssid = 'movF185DF'
+password = '~6qp'
 
 #---------
 
