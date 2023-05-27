@@ -18,6 +18,7 @@ import time
 import sys
 import os
 import uos
+import re
 #import select
       
 def main_program():
@@ -111,6 +112,8 @@ with open('default.html', 'r', encoding='utf-8') as f:
     html = f.read()
 '''
 
+
+
 # Get the directory path of the script
 script_dir = uos.getcwd()
 
@@ -146,6 +149,20 @@ if not html:
 # Option 2: If both the specified file and default file are not found, display an error message
 if not html:
     print("HTML file not found. Please ensure the file exists in the specified location.")
+else:
+    # Retrieve the title property from the object
+    title = "Homepage"  # Replace with the code to retrieve the title property of the object
+
+    # Find the <title> tag in the HTML
+    title_tag_start = html.find('<title>')
+    title_tag_end = html.find('</title>')
+
+    if title_tag_start != -1 and title_tag_end != -1:
+        # Replace the content within the <title> tag with the retrieved title
+        modified_html = html[:title_tag_start + len('<title>')] + title + html[title_tag_end:]
+        html = modified_html
+
+
 
 
 
