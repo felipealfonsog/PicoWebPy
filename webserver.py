@@ -19,15 +19,10 @@ import sys
 import os
 import uos
 #import select
-
-
       
 def main_program():
-    # Add your main program logic here
+    # Running now the main logic
     print("Running main program...")
-    
-#load the program till to read the lasat else 
-    
     
     
 # This is going to help the usage of machine.restet()
@@ -308,7 +303,8 @@ print('Listening on', addr)
  a socket.timeout exception will be raised, allowing the server
  to continue running and accept new connections.
 '''
-# s.settimeout(5)  # 5 seconds timeout (adjust as needed)
+# Set socket timeout to handle unresponsive connections
+s.settimeout(5)  # 5 seconds timeout (adjust as needed)
 
 
 
@@ -397,11 +393,11 @@ else:
     # Wait until the program is executed via Thonny
     print("Waiting for program execution via Thonny...")
     while usb_power_pin.value() == 0:
-        time.sleep(1)
+    # next line geneerates an error 
+     #   time.sleep(1)
 
     # Run the program after it is executed via Thonny
     print("Running program after Thonny execution...")
     main_program()
     
     
-
