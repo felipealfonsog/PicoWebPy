@@ -50,13 +50,13 @@ if __name__ == '__main__':
 # Initialize and connect to the Wi-Fi network
 # Casa
 '''
-ssid = 'movisF67_TARS'
-password = 'gpbxD7'
+ssid = 'wifi-id'
+password = 'pwd'
 '''
 
 # Depto
-ssid = 'movF185DF'
-password = '~6qp'
+ssid = 'wifi-id'
+password = 'pwd'
 
 #---------
 
