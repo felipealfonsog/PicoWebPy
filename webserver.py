@@ -19,8 +19,17 @@ import sys
 import os
 import uos
 #import select
+
+
       
-# Check if running as main program
+def main_program():
+    # Add your main program logic here
+    print("Running main program...")
+    
+#load the program till to read the lasat else 
+    
+    
+    
 # This is going to help the usage of machine.restet()
 
 '''
@@ -37,18 +46,17 @@ if __name__ == '__main__':
 '''
 
 
-    
 #---------
 # Initialize and connect to the Wi-Fi network
 # Casa
 '''
-ssid = 'moviTARS'
-password = 'gxD7'
+ssid = 'movistar2,4GHZ_50AF67_TARS'
+password = 'gpb3%V%P$!5exD7'
 '''
 
 # Depto
-ssid = 'mo5DF'
-password = '~6qp'
+ssid = 'movistar2,4GHZ_F185DF'
+password = '~{?ZEc#-G{CGw6qp'
 
 #---------
 
@@ -288,7 +296,6 @@ while True:
 # Set socket to non-blocking
 # s.setblocking(False)
 
-
 # Listen for connections
 s.listen(1)
 print('Listening on', addr)
@@ -302,6 +309,8 @@ print('Listening on', addr)
  to continue running and accept new connections.
 '''
 # s.settimeout(5)  # 5 seconds timeout (adjust as needed)
+
+
 
 # Handle client connections
 try:
@@ -321,6 +330,21 @@ try:
             print('Empty request, closing connection')
             cl.close()
             continue
+
+
+            request = client_info["request"]
+            print("Received request:", request)
+            response = "Server received: " + request
+            client_info["socket"].send(response.encode())
+
+            # Log client information
+            log_message = f"Client: {client_info['address']} - Request: {request}"
+            print(log_message)
+            with open("server.log", "a") as log_file:
+                log_file.write(log_message + "\n")
+                
+
+
 
         # Convert the request bytes to string
         request = request.decode()
@@ -352,8 +376,32 @@ try:
 
 except KeyboardInterrupt:
     print('Keyboard interrupt detected, shutting down...')
+    
 
 finally:
     # Close the socket
     s.close()
     
+    
+#  executed the code on power unless is connected via thonny
+# Define the USB power detection pin
+usb_power_pin = machine.Pin(6, machine.Pin.IN)
+
+# Check if the program is running on USB power
+if usb_power_pin.value() == 1:
+    # Run the program immediately
+    print("Running program on USB power...")
+    main_program()
+
+else:
+    # Wait until the program is executed via Thonny
+    print("Waiting for program execution via Thonny...")
+    while usb_power_pin.value() == 0:
+        time.sleep(1)
+
+    # Run the program after it is executed via Thonny
+    print("Running program after Thonny execution...")
+    main_program()
+    
+    
+
