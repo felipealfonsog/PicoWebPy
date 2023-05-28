@@ -73,17 +73,7 @@ It can be used to host a site 24/7. Also has a implementation for a 404 file not
 
 ```
 
-4. Adjustments you can make in `config`_
-
-   - **search_
-   - **delay** - Time 
-     - Please be aware of
-     - "recent", "popular", or "mixed"
-   - **number_of
-   - **run_continuously** - Set True if you want the bot to run continuously
-     - Also set True if you will be deploying the script
-
-5. Run the script!
+4. Run the script!
 
 ```
 python webserver.py
@@ -94,9 +84,7 @@ python webserver.py
 ```
 Web server in micro-python
  |-- webserver.py
- |-- default.html
- |-- 
- |--  
+ |-- default.html 
 ```
 
 ---
@@ -136,7 +124,7 @@ Felipe Alfonso González L. ([felipealfonsog](https://github.com/felipealfonsog)
 If you have any questions, comments, or concerns, feel free to contact me below.
 
 <p align="left">
-  <a href="mailto:felipe.alfonso.glz03@gmail.com"> 
+  <a href="mailto:felipe.alfonso.glz@gmail.com"> 
     <img alt="Connect via Email" src="https://img.shields.io/badge/Gmail-c14438?style=flat&logo=Gmail&logoColor=white" />
   </a>
 </p>
