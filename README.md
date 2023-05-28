@@ -112,20 +112,20 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 7. Open a Pull Request in my repository - Before start a conversation.
 
 -For Development, use the development branch and then we can do a pull request to the main branch. use : git --help for swtiching ... e.g.:
-...
+```
 felipe@Felipes-MacBook-Air webserver-raspberry-pico % git branch development
 felipe@Felipes-MacBook-Air webserver-raspberry-pico % git branch        
   development
   * main
 felipe@Felipes-MacBook-Air webserver-raspberry-pico % git checkout development
-...
+```
 When git push for 'development':
-...
+```
 git push --set-upstream origin development
 git branch --set-upstream-to=origin development
 
 git clone -b <branchname> <remote-repo-url>
-...
+```
 
 ---
 
