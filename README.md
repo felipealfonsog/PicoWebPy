@@ -15,7 +15,7 @@
 
 Web Server written in micropython for a Raspberry Pi Pico W 2 - Wifi - BT
 
-By Engineer: Felipe A. Gonzalez <f.alfonso@res-ear.ch>
+By Computer Science Engineer: Felipe A. Gonzalez <f.alfonso@res-ear.ch>
 
 If you like my project, give it a :star: or support me by buying me a coffee :coffee::grinning:
 
