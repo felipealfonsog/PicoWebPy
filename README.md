@@ -23,7 +23,7 @@ If you like my project, give it a :star: or support me by buying me a coffee :co
 
 
 ### Important Notice
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Starting February 9, we will no longer support free access to the Twitter API, both v2 and v1.1. A paid basic tier will be available instead 🧵</p>&mdash; Twitter Dev (<a href="https://twitter.com/TwitterDev/status/1621026986784337922?ref_src=twsrc%5Etfw">@TwitterDev</a>) February 2, 2023</blockquote>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">You can buy for about 10 or 15 USD a Raspberry Pi Pico in Aliexpress 🧵</p>&mdash; Check my site running simetimes using my code: <a href="http://sdfcscx.ddns.net/" target="_blank">sdfcscx.ddns.net</a>) May 28, 2023</blockquote>
 
 ---
 
