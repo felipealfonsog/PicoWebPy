@@ -71,12 +71,10 @@ It can be used to host a site 24/7. Also has a implementation for a 404 file not
 
 - Make sure you have uploaded the files in the raspberry.
 
-```
-
 4. Run the script!
 
 ```
-python webserver.py
+webserver.py
 ```
 
 ### File Structure
@@ -93,8 +91,6 @@ Web server in micro-python
 
 Here is a tutorial on how to deploy 
 
-
-```
 
 [Additional Information](#additional-information) for details on running the script continuously.
     - 
