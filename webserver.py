@@ -19,40 +19,34 @@ import sys
 import os
 import uos
 import re
+
+
+#-------------------------
 #import select
       
 def main_program():
     # Running now the main logic
     print("Running main program...")
-    
-    
-# This is going to help the usage of machine.restet()
 
-'''
-
-    By adding this check, the machine.reset() command
-    will only be executed if the script is being run as
-    the main program, i.e., directly executed by Thonny.
-
-'''
+#-------------------------
+# Implementation for Reset the Raspberry Pi
 '''
 if __name__ == '__main__':
     # Reset the Raspberry Pi Pico to ensure a clean start
     machine.reset()# Check if running as main program
 '''
 
-
-#---------
+#-------------------------
 # Initialize and connect to the Wi-Fi network
 
 # Wi-Fi network details
-#---------
-network1_ssid = 'wifi-id-1'
+#-------------------------
+network1_ssid = 'wifi-id'
 network1_password = 'pwd'
 
-network2_ssid = 'wifi-id-2'
+network2_ssid = 'wifi-id'
 network2_password = 'pwd'
-#---------
+#-------------------------
 
 # Initialize and connect to the Wi-Fi network
 wlan = network.WLAN(network.STA_IF)
@@ -93,26 +87,18 @@ print('IP:', status[0])
 
 
 
-
 #-------------------------
 # Read the HTML file
 #-------------------------
 # It's recommendable to insert a full webpage in a iframe, as in the default.html file has
+# Simple way:
 '''
 with open('default.html', 'r', encoding='utf-8') as f:
     html = f.read()
 '''
-
 #-------------------------
-# Read the HTML file
-#-------------------------
-# It's recommendable to insert a full webpage in a iframe, as in the default.html file has
-'''
-with open('default.html', 'r', encoding='utf-8') as f:
-    html = f.read()
-'''
 
-
+#Replacing <title> and reading the file.
 
 # Get the directory path of the script
 script_dir = uos.getcwd()
@@ -164,8 +150,6 @@ else:
 
 
 
-
-
 #-------------------------
 
 
@@ -180,7 +164,7 @@ s.bind(addr)
 # Set up socket and bind to address
 # V2.0: in a while we avoid any possible error if there's any other port open
 
-# ---------
+#-------------------------
  
 
 port = 80
@@ -212,13 +196,6 @@ s.listen(1)
 print('Listening on', addr)
 
 # Set socket timeout to handle unresponsive connections
-'''
- I've added the line s.settimeout(5) to set a timeout
- of 5 seconds for socket operations. This means that if
- a client connection is unresponsive for more than 5 seconds,
- a socket.timeout exception will be raised, allowing the server
- to continue running and accept new connections.
-'''
 # s.settimeout(5)  # 5 seconds timeout (adjust as needed)
 
 # Handle client connections
@@ -274,12 +251,8 @@ except KeyboardInterrupt:
 finally:
     # Close the socket
     s.close()
-    
-
 
 #-------------------------
-
-
 '''
 # Set up socket and bind to address v1.0
 
@@ -291,7 +264,7 @@ s.bind(addr)
 # Set up socket and bind to address
 # V2.0: in a while we avoid any possible error if there's any other port open
 
-# ---------
+#-------------------------
  
 
 port = 80
@@ -405,7 +378,8 @@ finally:
     # Close the socket
     s.close()
     
-    
+
+#-------------------------
 # Executed the code on power unless is connected via thonny
 # Define the USB power detection pin
 usb_power_pin = machine.Pin(6, machine.Pin.IN)
