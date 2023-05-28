@@ -44,7 +44,7 @@ If you like my project, give it a :star: or support me by buying me a coffee :co
 
 ## Getting Started
 
-Get a raspberry pi pico w 2 - wifi. Get a project usb - micro-c cable and get thonny.
+Get a raspberry pi pico w 2 - wifi. Get a usb - micro-c cable and get thonny IDE.
 
 ![Raspberry Pi Pico](resources-for-readme/raspberry-pi-pico.jpg)
 
