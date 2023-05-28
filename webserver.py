@@ -90,7 +90,8 @@ print('IP:', status[0])
 #-------------------------
 # Read the HTML file
 #-------------------------
-# It's recommendable to insert a full webpage in a iframe, as in the default.html file has
+# It's recommendable to insert a full webpage in
+# a iframe or in an object, as in the default.html file has
 # Simple way:
 '''
 with open('default.html', 'r', encoding='utf-8') as f:
