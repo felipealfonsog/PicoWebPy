@@ -20,7 +20,7 @@ Web Server written in micropython for a Raspberry Pi Pico W 2 - Wifi - BT
 
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
-    - [To Run it](#to-run)
+    - [To Run it](#to-run-it)
     - [To Host](#to-host)
 - [Instructions](#instructions)
   - [File Structure](#file-structure)
