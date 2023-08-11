@@ -1,4 +1,4 @@
-# PicoWebPy 
+## PicoWebPy 
 Web Server written in micropython for a Raspberry Pi Pico W 2 - Wifi - BT
 
 ![Version](https://img.shields.io/github/release/felipealfonsog/PicoWebPy.svg?style=flat&color=blue)
@@ -18,7 +18,7 @@ Web Server written in micropython for a Raspberry Pi Pico W 2 - Wifi - BT
 ---
 -->
 #
-### Table of Contents
+#### Table of Contents
 
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
@@ -34,13 +34,13 @@ Web Server written in micropython for a Raspberry Pi Pico W 2 - Wifi - BT
 
 ---
 
-## Getting Started
+#### Getting Started
 
 Get a raspberry pi pico w 2 - wifi. Get a usb - micro-c cable and get thonny IDE.
 
 ![Raspberry Pi Pico](resources-for-readme/raspberry-pi-pico.jpg)
 
-### Prerequisites
+#### Prerequisites
 
 #### To Run it
 
@@ -55,7 +55,7 @@ It can be used to host a site 24/7. Also has a implementation for a 404 file not
 
 ---
 
-## Instructions
+#### Instructions
 
 1. Get thony IDE and modify the network connectivity. 
 
@@ -69,7 +69,7 @@ It can be used to host a site 24/7. Also has a implementation for a 404 file not
 webserver.py
 ```
 
-### File Structure
+#### File Structure
 
 ```
 Web server in micro-python
@@ -79,21 +79,18 @@ Web server in micro-python
 
 ---
 
-## Deployment
-
-Here is a tutorial on how to deploy 
-
+#### Deployment
 
 [Additional Information](#additional-information) for details on running the script continuously.
     - 
 
 ---
 
-## Contributing
+#### Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Please make sure to update tests as appropriate. But i would prefer if you could contact me first. 
 
-### How To Contribute
+#### How To Contribute
 
 1. Fork the repository to your own Github account.
 2. Clone the project to your machine.
@@ -121,29 +118,27 @@ git clone -b <branchname> <remote-repo-url>
 
 ---
 
-### Creator / Maintainer
+#### Creator / Maintainer
 Computer Science Engineer:
 Felipe Alfonso González L. ([felipealfonsog](https://github.com/felipealfonsog))
 
-If you have any questions, comments, or concerns, feel free to contact me below.
+#### 🤝 Support and Contributions
 
-<p align="left">
-  <a href="mailto:felipe.alfonso.glz@gmail.com"> 
-    <img alt="Connect via Email" src="https://img.shields.io/badge/Gmail-c14438?style=flat&logo=Gmail&logoColor=white" />
-  </a>
-</p>
+If you find this project helpful and would like to support its development, there are several ways you can contribute:
 
-This project was created for educational purposes of learning development, documentation, and deployment and for personal and open-source use.
+- **Code Contributions**: If you're a developer, you can contribute by submitting pull requests with bug fixes, new features, or improvements. Feel free to fork the project and create your own branch to work on.
+- **Bug Reports and Feedback**: If you encounter any issues or have suggestions for improvement, please open an issue on the project's GitHub repository. Your feedback is valuable in making the project better.
+- **Documentation**: Improving the documentation is always appreciated. If you find any gaps or have suggestions to enhance the project's documentation, please let me know.
 
-Default values of the project are used to /
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-%E2%98%95-FFDD00?style=flat-square&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/felipealfonsog)
+[![PayPal](https://img.shields.io/badge/Donate%20with-PayPal-00457C?style=flat-square&logo=paypal&logoColor=white)](https://www.paypal.com/felipealfonsog)
+[![GitHub Sponsors](https://img.shields.io/badge/Sponsor%20me%20on-GitHub-%23EA4AAA?style=flat-square&logo=github-sponsors&logoColor=white)](https://github.com/sponsors/felipealfonsog)
 
-If you like my content or find this code useful, give it a :star: or support me by buying me a coffee :coffee::grinning:
-
-<a href="https://www.buymeacoffee.com/felipealfonsog" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+Your support and contributions are greatly appreciated! Thank you for your help in making this project better.
 
 ---
 
-## Additional Information
+#### Additional Information
 
 - [Getting Started with Thonny](https://thonny.org/)
 - [How to Continuously Run a Python Script on an EC2 Server](https://intellipaat.com/community/9361/how-to-continuously-run-a-python-script-on-an-ec2-server)
