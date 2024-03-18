@@ -1,5 +1,5 @@
 ## PicoWebPy 
-Web Server written in micropython for a Raspberry Pi Pico W 2 - Wifi - BT
+Web Server empowers users to host a straightforward website comprising HTML, images, and CSS in a creative manner utilizing a Raspberry Pi Pico. It is coded in MicroPython specifically for the Raspberry Pi Pico W 2 - WiFi - Bluetooth.
 
 ![Version](https://img.shields.io/github/release/felipealfonsog/PicoWebPy.svg?style=flat&color=blue)
 [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Naereen/badges/)
@@ -36,7 +36,7 @@ Web Server written in micropython for a Raspberry Pi Pico W 2 - Wifi - BT
 
 #### Getting Started
 
-Get a raspberry pi pico w 2 - wifi. Get a usb - micro-c cable and get thonny IDE.
+Get a raspberry pi pico w 2 - wifi. Get a usb - micro-c cable and get Thonny - IDE.
 
 ![Raspberry Pi Pico](resources-for-readme/raspberry-pi-pico.jpg)
 
